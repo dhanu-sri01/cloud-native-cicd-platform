@@ -1,0 +1,30 @@
+pipeline {
+    agent any
+
+    stages {
+
+        stage('Git Checkout') {
+            steps {
+                git 'https://github.com/dhanu-sri01/cloud-native-cicd-platform.git'
+            }
+        }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t flask-app .'
+            }
+        }
+
+        stage('Trivy Scan') {
+            steps {
+                sh 'trivy image flask-app'
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                sh 'kubectl apply -f kubernetes/'
+            }
+        }
+    }
+}

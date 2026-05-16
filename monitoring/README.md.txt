@@ -1,0 +1,1 @@
+Prometheus and Grafana used for Kubernetes monitoring and observability.
